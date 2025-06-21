@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>राष्ट्रीय लोकतांत्रिक पार्टी | RLP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        :root {
+            --primary: #FF6B00;
+            --secondary: #2E8B57;
+            --accent: #1E90FF;
+            --dark: #2C3E50;
+            --light: #F8F9FA;
+            --saffron: #FF9933;
+            --text: #333333;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hind', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #e4e7eb);
+            color: var(--text);
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+        
+        /* Door Animation Styles */
+        .door-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            z-index: 1000;
+            background: var(--dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+        }
+        
+        .door {
+            position: relative;
+            width: 300px;
+            height: 500px;
+            transform-style: preserve-3d;
+        }
+        
+        .left-door, .right-door {
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--saffron));
+            border: 5px solid var(--dark);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: transform 1.5s ease-in-out;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            color: white;
+            overflow: hidden;
+        }
+        
+        .left-door {
+            left: 0;
+            transform-origin: left center;
+        }
+        
+        .right-door {
+            right: 0;
+            transform-origin: right center;
+        }
+        
+        .door-logo {
+            width: 80%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Main Content */
+        .main-content {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, var(--primary), var(--saffron));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-menu li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 30px;
+        }
+        
+        .nav-menu li a:hover {
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .mobile-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1580136605362-0c4cb6e34c8f?ixlib=rb-4.0.3') no-repeat center center/cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            z-index: 2;
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s ease;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.3s forwards;
+            opacity: 0;
+        }
+        
+        .hero-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease 0.6s forwards;
+            opacity: 0;
+        }
+        
+        .hero-btn:hover {
+            background: var(--saffron);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        /* Section Common Styles */
+        .section {
+            padding: 5rem 2rem;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+        }
+        
+        /* Leaders Section */
+        .leaders-section {
+            background: var(--light);
+        }
+        
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .leader-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .leader-img {
+            height: 300px;
+            width: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .hanuman-img {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1580136605362-0c4cb6e34c8f?ixlib=rb-4.0.3') center/cover;
+        }
+        
+        .prakash-img {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1580136605362-0c4cb6e34c8f?ixlib=rb-4.0.3') center/cover;
+        }
+        
+        .leader-info {
+            padding: 1.5rem;
+        }
+        
+        .leader-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .leader-position {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-desc {
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        /* Products Section */
+        .products-section {
+            background: linear-gradient(to right, #f8f9fa, #e9ecef);
+        }
+        
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+        
+        .product-img {
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary), var(--saffron));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            color: white;
+        }
+        
+        .product-info {
+            padding: 1.5rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .product-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .product-desc {
+            color: var(--text);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+        
+        .product-link {
+            display: inline-block;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .product-link:hover {
+            background: var(--accent);
+        }
+        
+        /* Membership Section */
+        .membership-section {
+            background: linear-gradient(to right, var(--secondary), var(--accent));
+            color: white;
+            text-align: center;
+        }
+        
+        .membership-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .membership-title {
+            color: white;
+        }
+        
+        .membership-title:after {
+            background: white;
+        }
+        
+        .membership-desc {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .membership-form {
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .register-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .register-btn:hover {
+            background: var(--saffron);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .message {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .success {
+            background: rgba(46, 204, 113, 0.2);
+            border: 1px solid #2ecc71;
+            color: #27ae60;
+        }
+        
+        .error {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid #e74c3c;
+            color: #c0392b;
+        }
+        
+        /* Membership Card */
+        .membership-card-container {
+            display: none;
+            margin-top: 2rem;
+            background: rgba(255,255,255,0.2);
+            padding: 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .membership-card {
+            background: linear-gradient(135deg, var(--primary), var(--saffron));
+            border-radius: 15px;
+            padding: 2rem;
+            color: white;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .card-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+        
+        .member-name {
+            font-size: 1.5rem;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: rgba(255,255,255,0.2);
+            border-radius: 8px;
+        }
+        
+        .member-id {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .download-btn {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .download-btn:hover {
+            background: #f1f1f1;
+            transform: translateY(-3px);
+        }
+        
+        /* Comment Section */
+        .comment-section {
+            background: var(--light);
+        }
+        
+        .comment-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+        
+        .comment-form .form-group textarea {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background: var(--saffron);
+        }
+        
+        .comments-list {
+            margin-top: 3rem;
+        }
+        
+        .comment {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .comment:after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 30px;
+            width: 20px;
+            height: 20px;
+            background: #f8f9fa;
+            transform: rotate(45deg);
+        }
+        
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .comment-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .comment-date {
+            color: #777;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+        
+        .comment-content {
+            line-height: 1.6;
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(to right, var(--dark), #1a2530);
+            color: white;
+        }
+        
+        .contact-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .contact-details h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .contact-details p {
+            color: #ddd;
+            line-height: 1.6;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .social-link {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+        }
+        
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-form .form-group input,
+        .contact-form .form-group textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.9);
+        }
+        
+        .contact-form .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            background: var(--light);
+            padding: 5rem 2rem;
+            display: none;
+        }
+        
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+        }
+        
+        .admin-header {
+            background: linear-gradient(to right, var(--primary), var(--saffron));
+            color: white;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .admin-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            background: #f1f3f5;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab-btn.active {
+            background: white;
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .tab-content {
+            padding: 2rem;
+        }
+        
+        .tab-pane {
+            display: none;
+        }
+        
+        .tab-pane.active {
+            display: block;
+        }
+        
+        .admin-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .admin-table th, 
+        .admin-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .admin-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            background: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn:hover {
+            background: var(--accent);
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: #ddd;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: #aaa;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 0 1rem;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                background: white;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+                transition: all 0.4s ease;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-menu li a {
+                color: var(--dark);
+            }
+            
+            .mobile-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .section {
+                padding: 3rem 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Door Opening Animation -->
+    <div class="door-container">
+        <div class="door">
+            <div class="left-door">
+                <div class="door-logo">
+                    <i class="fas fa-landmark"></i>
+                </div>
+            </div>
+            <div class="right-door">
+                <div class="door-logo">
+                    <i class="fas fa-people-carry"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Header -->
+        <header>
+            <div class="header-container">
+                <div class="logo">
+                    <div class="logo-img">RLP</div>
+                    <div class="logo-text">राष्ट्रीय लोकतांत्रिक पार्टी</div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="#home">होम</a></li>
+                    <li><a href="#leaders">नेता</a></li>
+                    <li><a href="#products">उत्पाद</a></li>
+                    <li><a href="#membership">सदस्यता</a></li>
+                    <li><a href="#comments">टिप्पणियाँ</a></li>
+                    <li><a href="#contact">संपर्क</a></li>
+                    <li><a href="#admin">एडमिन</a></li>
+                </ul>
+                <div class="mobile-toggle">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">युवा, किसान, मजदूर और सैनिकों की आवाज</h1>
+                <p class="hero-subtitle">राष्ट्रीय लोकतांत्रिक पार्टी - पश्चिमी राजस्थान में बदलाव की नई लहर</p>
+                <a href="#membership" class="hero-btn">सदस्य बनें</a>
+            </div>
+        </section>
+        
+        <!-- Leaders Section -->
+        <section class="section leaders-section" id="leaders">
+            <h2 class="section-title">हमारे नेता</h2>
+            <div class="leaders-grid">
+                <div class="leader-card">
+                    <div class="leader-img hanuman-img"></div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">हनुमान बेनीवाल</h3>
+                        <p class="leader-position">राष्ट्रीय संयोजक, RLP</p>
+                        <p class="leader-desc">2018 में स्थापित राष्ट्रीय लोकतांत्रिक पार्टी के संस्थापक। युवाओं, किसानों और मजदूरों के हक के लिए संघर्षरत। 2019 से नागौर से लोकसभा सांसद।</p>
+                    </div>
+                </div>
+                
+                <div class="leader-card">
+                    <div class="leader-img prakash-img"></div>
+                    <div class="leader-info">
+                        <h3 class="leader-name">डॉ. प्रकाश चौधरी</h3>
+                        <p class="leader-position">जिला संयोजक, बाड़मेर</p>
+                        <p class="leader-desc">युवा चेहरा और सोशल मीडिया प्रमुख। बाड़मेर-जैसलमेर बेल्ट में RLP की लोकप्रियता बढ़ाने में अग्रणी भूमिका।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Products Section -->
+        <section class="section products-section" id="products">
+            <h2 class="section-title">RLP उत्पाद</h2>
+            <div class="products-container">
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">RLP विचारधारा पुस्तिका</h3>
+                        <p class="product-desc">पार्टी की मूल विचारधारा, सिद्धांतों और भविष्य की योजनाओं पर विस्तृत जानकारी।</p>
+                        <a href="#" class="product-link" id="download-book">डाउनलोड करें</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-t-shirt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">RLP मर्चेंडाइज</h3>
+                        <p class="product-desc">पार्टी के रंगों और प्रतीक चिन्ह वाले टी-शर्ट, टोपी और अन्य सामग्री।</p>
+                        <a href="#" class="product-link" id="buy-merch">खरीदें</a>
+                    </div>
+                </div>
+                
+                <div class="product-card">
+                    <div class="product-img">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">RLP मोबाइल ऐप</h3>
+                        <p class="product-desc">पार्टी की नवीनतम गतिविधियों, रैलियों और कार्यक्रमों से अपडेट रहें।</p>
+                        <a href="#" class="product-link" id="download-app">डाउनलोड करें</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Membership Section -->
+        <section class="section membership-section" id="membership">
+            <h2 class="section-title">सदस्यता</h2>
+            <div class="membership-container">
+                <p class="membership-desc">राष्ट्रीय लोकतांत्रिक पार्टी का सदस्य बनकर बदलाव का हिस्सा बनें। सदस्य बनने पर आपको एक यूनिक आईडी और रंगीन सदस्यता कार्ड प्राप्त होगा।</p>
+                
+                <div class="membership-form">
+                    <div class="form-group">
+                        <label for="name">पूरा नाम</label>
+                        <input type="text" id="name" placeholder="अपना पूरा नाम दर्ज करें" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">ईमेल</label>
+                        <input type="email" id="email" placeholder="अपना ईमेल दर्ज करें" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">मोबाइल नंबर</label>
+                        <input type="tel" id="phone" placeholder="अपना मोबाइल नंबर दर्ज करें" required>
+                    </div>
+                    
+                    <button class="register-btn" id="register-btn">सदस्यता रजिस्टर करें</button>
+                    
+                    <div class="message" id="membership-message"></div>
+                </div>
+                
+                <div class="membership-card-container" id="membership-card-container">
+                    <div class="membership-card" id="card-to-download">
+                        <div class="card-logo">
+                            <i class="fas fa-landmark"></i>
+                        </div>
+                        <h3 class="card-title">राष्ट्रीय लोकतांत्रिक पार्टी</h3>
+                        <p>सदस्यता कार्ड</p>
+                        <div class="member-name" id="card-name"></div>
+                        <div class="member-id" id="card-id"></div>
+                        <button class="download-btn" id="download-card">कार्ड डाउनलोड करें</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Comment Section -->
+        <section class="section comment-section" id="comments">
+            <h2 class="section-title">आपकी आवाज</h2>
+            <div class="comment-container">
+                <form class="comment-form" id="comment-form">
+                    <div class="form-group">
+                        <label for="comment-name">आपका नाम</label>
+                        <input type="text" id="comment-name" placeholder="अपना नाम दर्ज करें" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment-text">आपकी टिप्पणी</label>
+                        <textarea id="comment-text" placeholder="हमें आपकी राय जानना अच्छा लगेगा..." required></textarea>
+                    </div>
+                    <button type="button" class="submit-btn" id="submit-comment">टिप्पणी सबमिट करें</button>
+                    <div class="message" id="comment-message"></div>
+                </form>
+                
+                <div class="comments-list" id="comments-list">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-avatar">R</div>
+                            <div class="comment-author">रमेश कुमार</div>
+                            <div class="comment-date">3 दिन पहले</div>
+                        </div>
+                        <div class="comment-content">
+                            RLP राजस्थान में युवाओं के लिए नई उम्मीद है। हनुमान बेनीवाल जी का किसानों के लिए संघर्ष प्रेरणादायक है।
+                        </div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-avatar">S</div>
+                            <div class="comment-author">सीता देवी</div>
+                            <div class="comment-date">1 सप्ताह पहले</div>
+                        </div>
+                        <div class="comment-content">
+                            डॉ. प्रकाश चौधरी जी का बाड़मेर में युवाओं के लिए काम सराहनीय है। RLP को मेरा पूरा समर्थन।
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Contact Section -->
+        <section class="section contact-section" id="contact">
+            <h2 class="section-title">संपर्क करें</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>मुख्य कार्यालय</h3>
+                            <p>राष्ट्रीय लोकतांत्रिक पार्टी, जयनारायण व्यास कॉलोनी, जोधपुर, राजस्थान</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>ईमेल</h3>
+                            <p>rlp.rajasthan@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>सोशल मीडिया</h3>
+                            <div class="social-links">
+                                <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                                <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="contact-name" placeholder="आपका नाम" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="contact-email" placeholder="आपका ईमेल" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="contact-subject" placeholder="विषय" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="contact-message" placeholder="आपका संदेश" required></textarea>
+                    </div>
+                    <button type="button" class="submit-btn" id="submit-contact">संदेश भेजें</button>
+                    <div class="message" id="contact-message"></div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Admin Panel -->
+        <section class="admin-panel" id="admin">
+            <div class="admin-container">
+                <div class="admin-header">
+                    <div class="admin-title">RLP एडमिन पैनल</div>
+                </div>
+                
+                <div class="admin-tabs">
+                    <button class="tab-btn active" data-tab="members">सदस्य</button>
+                    <button class="tab-btn" data-tab="leaders">नेता</button>
+                    <button class="tab-btn" data-tab="products">उत्पाद</button>
+                    <button class="tab-btn" data-tab="comments">टिप्पणियाँ</button>
+                </div>
+                
+                <div class="tab-content">
+                    <div class="tab-pane active" id="members-tab">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>आईडी</th>
+                                    <th>नाम</th>
+                                    <th>ईमेल</th>
+                                    <th>मोबाइल</th>
+                                    <th>कार्रवाई</th>
+                                </tr>
+                            </thead>
+                            <tbody id="members-table">
+                                <tr>
+                                    <td>RLP001</td>
+                                    <td>रमेश कुमार</td>
+                                    <td>ramesh@example.com</td>
+                                    <td>9876543210</td>
+                                    <td><button class="action-btn">देखें</button></td>
+                                </tr>
+                                <tr>
+                                    <td>RLP002</td>
+                                    <td>सीता देवी</td>
+                                    <td>sita@example.com</td>
+                                    <td>9876543211</td>
+                                    <td><button class="action-btn">देखें</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="tab-pane" id="leaders-tab">
+                        <p>नेता प्रबंधन पैनल - यहाँ आप नए नेता जोड़ सकते हैं और मौजूदा नेताओं की जानकारी अपडेट कर सकते हैं।</p>
+                    </div>
+                    
+                    <div class="tab-pane" id="products-tab">
+                        <p>उत्पाद प्रबंधन पैनल - यहाँ आप RLP से संबंधित उत्पादों को प्रबंधित कर सकते हैं।</p>
+                    </div>
+                    
+                    <div class="tab-pane" id="comments-tab">
+                        <p>टिप्पणी प्रबंधन पैनल - यहाँ आप उपयोगकर्ताओं की टिप्पणियों का प्रबंधन कर सकते हैं।</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer>
+            <div class="footer-logo">RLP</div>
+            <p>राष्ट्रीय लोकतांत्रिक पार्टी - युवा, किसान, मजदूर और सैनिकों की आवाज</p>
+            
+            <div class="footer-links">
+                <a href="#home">होम</a>
+                <a href="#leaders">नेता</a>
+                <a href="#products">उत्पाद</a>
+                <a href="#membership">सदस्यता</a>
+                <a href="#comments">टिप्पणियाँ</a>
+                <a href="#contact">संपर्क</a>
+            </div>
+            
+            <p class="copyright">© 2025 राष्ट्रीय लोकतांत्रिक पार्टी। सर्वाधिकार सुरक्षित। डॉ. प्रकाश चौधरी द्वारा विकसित</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Door opening animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const leftDoor = document.querySelector('.left-door');
+            const rightDoor = document.querySelector('.right-door');
+            const doorContainer = document.querySelector('.door-container');
+            const mainContent = document.querySelector('.main-content');
+            
+            setTimeout(() => {
+                leftDoor.style.transform = "rotateY(-120deg)";
+                rightDoor.style.transform = "rotateY(120deg)";
+                
+                setTimeout(() => {
+                    doorContainer.style.opacity = "0";
+                    setTimeout(() => {
+                        doorContainer.style.display = "none";
+                        mainContent.style.display = "block";
+                        setTimeout(() => {
+                            mainContent.style.opacity = "1";
+                        }, 100);
+                    }, 1000);
+                }, 2000);
+            }, 1000);
+            
+            // Mobile menu toggle
+            const mobileToggle = document.querySelector('.mobile-toggle');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            mobileToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+            });
+            
+            // Admin panel access
+            const adminLinks = document.querySelectorAll('a[href="#admin"]');
+            const adminPanel = document.querySelector('.admin-panel');
+            
+            adminLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    adminPanel.style.display = 'block';
+                    window.scrollTo({
+                        top: adminPanel.offsetTop,
+                        behavior: 'smooth'
+                    });
+                });
+            });
+            
+            // Tab functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabPanes = document.querySelectorAll('.tab-pane');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    // Remove active class from all buttons and panes
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabPanes.forEach(pane => pane.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    btn.classList.add('active');
+                    
+                    // Show corresponding pane
+                    const tabId = btn.getAttribute('data-tab');
+                    document.getElementById(`${tabId}-tab`).classList.add('active');
+                });
+            });
+            
+            // Membership form functionality
+            const registerBtn = document.getElementById('register-btn');
+            const membershipForm = document.querySelector('.membership-form');
+            const membershipCardContainer = document.getElementById('membership-card-container');
+            const cardName = document.getElementById('card-name');
+            const cardId = document.getElementById('card-id');
+            const membershipMessage = document.getElementById('membership-message');
+            
+            registerBtn.addEventListener('click', function() {
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                
+                if (!name || !email || !phone) {
+                    showMessage(membershipMessage, 'error', 'कृपया सभी फ़ील्ड भरें');
+                    return;
+                }
+                
+                // Generate unique ID
+                const uniqueId = 'RLP' + Math.floor(1000 + Math.random() * 9000);
+                
+                // Save to local storage
+                const memberData = {
+                    name,
+                    email,
+                    phone,
+                    id: uniqueId,
+                    date: new Date().toLocaleDateString('hi-IN')
+                };
+                
+                // Get existing members or initialize empty array
+                const existingMembers = JSON.parse(localStorage.getItem('rlp_members')) || [];
+                
+                // Add new member
+                existingMembers.push(memberData);
+                
+                // Save back to localStorage
+                localStorage.setItem('rlp_members', JSON.stringify(existingMembers));
+                
+                // Update admin table
+                const membersTable = document.getElementById('members-table');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td>${uniqueId}</td>
+                    <td>${name}</td>
+                    <td>${email}</td>
+                    <td>${phone}</td>
+                    <td><button class="action-btn">देखें</button></td>
+                `;
+                membersTable.appendChild(newRow);
+                
+                // Show membership card
+                cardName.textContent = name;
+                cardId.textContent = 'आईडी: ' + uniqueId;
+                membershipCardContainer.style.display = 'block';
+                
+                // Show success message
+                showMessage(membershipMessage, 'success', 'सदस्यता सफलतापूर्वक पंजीकृत हो गई!');
+                
+                // Scroll to card
+                setTimeout(() => {
+                    membershipCardContainer.scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            });
+            
+            // Load existing members on page load
+            function loadMembers() {
+                const membersTable = document.getElementById('members-table');
+                const existingMembers = JSON.parse(localStorage.getItem('rlp_members')) || [];
+                
+                // Clear existing rows except the first two (sample data)
+                while (membersTable.children.length > 2) {
+                    membersTable.removeChild(membersTable.lastChild);
+                }
+                
+                // Add members from localStorage
+                existingMembers.forEach(member => {
+                    const newRow = document.createElement('tr');
+                    newRow.innerHTML = `
+                        <td>${member.id}</td>
+                        <td>${member.name}</td>
+                        <td>${member.email}</td>
+                        <td>${member.phone}</td>
+                        <td><button class="action-btn">देखें</button></td>
+                    `;
+                    membersTable.appendChild(newRow);
+                });
+            }
+            
+            // Download membership card as PDF
+            document.getElementById('download-card').addEventListener('click', function() {
+                const cardElement = document.getElementById('card-to-download');
+                
+                // Use html2canvas to capture card as image
+                html2canvas(cardElement).then(canvas => {
+                    // Create PDF
+                    const pdf = new jspdf.jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [canvas.width, canvas.height]
+                    });
+                    
+                    // Add image to PDF
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
+                    
+                    // Download PDF
+                    pdf.save('rlp_membership_card.pdf');
+                    
+                    // Show success message
+                    showMessage(membershipMessage, 'success', 'कार्ड सफलतापूर्वक डाउनलोड हो गया!');
+                });
+            });
+            
+            // Comment form functionality
+            const commentForm = document.getElementById('comment-form');
+            const submitCommentBtn = document.getElementById('submit-comment');
+            const commentsList = document.getElementById('comments-list');
+            const commentMessage = document.getElementById('comment-message');
+            
+            submitCommentBtn.addEventListener('click', function() {
+                const name = document.getElementById('comment-name').value;
+                const text = document.getElementById('comment-text').value;
+                
+                if (!name || !text) {
+                    showMessage(commentMessage, 'error', 'कृपया नाम और टिप्पणी दोनों भरें');
+                    return;
+                }
+                
+                // Create new comment element
+                const newComment = document.createElement('div');
+                newComment.className = 'comment';
+                
+                // Get first letter for avatar
+                const avatarLetter = name.charAt(0).toUpperCase();
+                
+                // Format date
+                const now = new Date();
+                const dateStr = now.toLocaleDateString('hi-IN');
+                
+                newComment.innerHTML = `
+                    <div class="comment-header">
+                        <div class="comment-avatar">${avatarLetter}</div>
+                        <div class="comment-author">${name}</div>
+                        <div class="comment-date">${dateStr}</div>
+                    </div>
+                    <div class="comment-content">${text}</div>
+                `;
+                
+                // Add to top of comments list
+                commentsList.insertBefore(newComment, commentsList.firstChild);
+                
+                // Save comment to localStorage
+                const commentData = {
+                    name: name,
+                    text: text,
+                    date: dateStr
+                };
+                
+                // Get existing comments or initialize empty array
+                const existingComments = JSON.parse(localStorage.getItem('rlp_comments')) || [];
+                
+                // Add new comment
+                existingComments.push(commentData);
+                
+                // Save back to localStorage
+                localStorage.setItem('rlp_comments', JSON.stringify(existingComments));
+                
+                // Clear form
+                document.getElementById('comment-name').value = '';
+                document.getElementById('comment-text').value = '';
+                
+                // Show success message
+                showMessage(commentMessage, 'success', 'आपकी टिप्पणी सफलतापूर्वक जमा कर दी गई है!');
+            });
+            
+            // Load existing comments on page load
+            function loadComments() {
+                const commentsList = document.getElementById('comments-list');
+                const existingComments = JSON.parse(localStorage.getItem('rlp_comments')) || [];
+                
+                // Clear existing comments except the first two (sample data)
+                while (commentsList.children.length > 2) {
+                    commentsList.removeChild(commentsList.lastChild);
+                }
+                
+                // Add comments from localStorage
+                existingComments.forEach(comment => {
+                    const newComment = document.createElement('div');
+                    newComment.className = 'comment';
+                    
+                    // Get first letter for avatar
+                    const avatarLetter = comment.name.charAt(0).toUpperCase();
+                    
+                    newComment.innerHTML = `
+                        <div class="comment-header">
+                            <div class="comment-avatar">${avatarLetter}</div>
+                            <div class="comment-author">${comment.name}</div>
+                            <div class="comment-date">${comment.date}</div>
+                        </div>
+                        <div class="comment-content">${comment.text}</div>
+                    `;
+                    
+                    // Add to comments list
+                    commentsList.appendChild(newComment);
+                });
+            }
+            
+            // Contact form functionality
+            const contactForm = document.getElementById('contact-form');
+            const submitContactBtn = document.getElementById('submit-contact');
+            const contactMessage = document.getElementById('contact-message');
+            
+            submitContactBtn.addEventListener('click', function() {
+                const name = document.getElementById('contact-name').value;
+                const email = document.getElementById('contact-email').value;
+                const subject = document.getElementById('contact-subject').value;
+                const message = document.getElementById('contact-message').value;
+                
+                if (!name || !email || !subject || !message) {
+                    showMessage(contactMessage, 'error', 'कृपया सभी फ़ील्ड भरें');
+                    return;
+                }
+                
+                // Save contact message to localStorage
+                const contactData = {
+                    name,
+                    email,
+                    subject,
+                    message,
+                    date: new Date().toLocaleDateString('hi-IN')
+                };
+                
+                // Get existing contacts or initialize empty array
+                const existingContacts = JSON.parse(localStorage.getItem('rlp_contacts')) || [];
+                
+                // Add new contact
+                existingContacts.push(contactData);
+                
+                // Save back to localStorage
+                localStorage.setItem('rlp_contacts', JSON.stringify(existingContacts));
+                
+                // Clear form
+                document.getElementById('contact-name').value = '';
+                document.getElementById('contact-email').value = '';
+                document.getElementById('contact-subject').value = '';
+                document.getElementById('contact-message').value = '';
+                
+                // Show success message
+                showMessage(contactMessage, 'success', 'आपका संदेश सफलतापूर्वक भेज दिया गया है! हम जल्द ही आपसे संपर्क करेंगे।');
+            });
+            
+            // Product buttons functionality
+            document.getElementById('download-book').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('RLP विचारधारा पुस्तिका डाउनलोड शुरू हो रही है...');
+            });
+            
+            document.getElementById('buy-merch').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('आप RLP मर्चेंडाइज खरीदने की प्रक्रिया पर जा रहे हैं...');
+            });
+            
+            document.getElementById('download-app').addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('RLP मोबाइल ऐप डाउनलोड शुरू हो रहा है...');
+            });
+            
+            // Helper function to show messages
+            function showMessage(element, type, text) {
+                element.textContent = text;
+                element.className = 'message ' + type;
+                element.style.display = 'block';
+                
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 5000);
+            }
+            
+            // Load existing data on page load
+            loadMembers();
+            loadComments();
+        });
+    </script>
+</body>
+</html>

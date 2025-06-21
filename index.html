@@ -251,66 +251,29 @@
         }
         
         /* Leaders Section */
-        .leaders-section {
-            background: var(--light);
-        }
-        
-        .leaders-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .leader-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-            position: relative;
-        }
-        
-        .leader-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .leader-img {
-            height: 300px;
-            width: 100%;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .hanuman-img {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1580136605362-0c4cb6e34c8f?ixlib=rb-4.0.3') center/cover;
-        }
-        
-        .prakash-img {
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1580136605362-0c4cb6e34c8f?ixlib=rb-4.0.3') center/cover;
-        }
-        
-        .leader-info {
-            padding: 1.5rem;
-        }
-        
-        .leader-name {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .leader-position {
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .leader-desc {
-            color: var(--text);
-            line-height: 1.6;
-        }
+        <!-- Leaders Section -->
+<section class="section leaders-section" id="leaders">
+    <h2 class="section-title">हमारे नेता</h2>
+    <div class="leaders-grid">
+        <div class="leader-card">
+            <img src="HB.jpg" alt="Hanuman Beniwal" class="leader-img" id="hanuman-img">
+            <div class="leader-info">
+                <h3 class="leader-name">हनुमान बेनीवाल</h3>
+                <p class="leader-position">राष्ट्रीय संयोजक, RLP</p>
+                <p class="leader-desc">2018 में स्थापित राष्ट्रीय लोकतांत्रिक पार्टी के संस्थापक। युवाओं, किसानों और मजदूरों के हक के लिए संघर्षरत। 2019 से नागौर से लोकसभा सांसद।</p>
+            </div>
+        </div>
+
+        <div class="leader-card">
+            <img src="pk.jpg" alt="Dr. Prakash Chaudhary" class="leader-img" id="prakash-img">
+            <div class="leader-info">
+                <h3 class="leader-name">डॉ. प्रकाश चौधरी</h3>
+                <p class="leader-position">जिला संयोजक, बाड़मेर</p>
+                <p class="leader-desc">युवा चेहरा और सोशल मीडिया प्रमुख। बाड़मेर-जैसलमेर बेल्ट में RLP की लोकप्रियता बढ़ाने में अग्रणी भूमिका।</p>
+            </div>
+        </div>
+    </div>
+</section>
         
         /* Products Section */
         .products-section {

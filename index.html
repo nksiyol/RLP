@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <style>
         :root {
             --primary: #FF6B00;
@@ -178,7 +179,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            text Mitte;
             color: white;
             position: relative;
             overflow: hidden;
@@ -251,29 +252,59 @@
         }
         
         /* Leaders Section */
-        <!-- Leaders Section -->
-<section class="section leaders-section" id="leaders">
-    <h2 class="section-title">हमारे नेता</h2>
-    <div class="leaders-grid">
-        <div class="leader-card">
-            <img src="HB.jpg" alt="Hanuman Beniwal" class="leader-img" id="hanuman-img">
-            <div class="leader-info">
-                <h3 class="leader-name">हनुमान बेनीवाल</h3>
-                <p class="leader-position">राष्ट्रीय संयोजक, RLP</p>
-                <p class="leader-desc">2018 में स्थापित राष्ट्रीय लोकतांत्रिक पार्टी के संस्थापक। युवाओं, किसानों और मजदूरों के हक के लिए संघर्षरत। 2019 से नागौर से लोकसभा सांसद।</p>
-            </div>
-        </div>
-
-        <div class="leader-card">
-            <img src="pk.jpg" alt="Dr. Prakash Chaudhary" class="leader-img" id="prakash-img">
-            <div class="leader-info">
-                <h3 class="leader-name">डॉ. प्रकाश चौधरी</h3>
-                <p class="leader-position">जिला संयोजक, बाड़मेर</p>
-                <p class="leader-desc">युवा चेहरा और सोशल मीडिया प्रमुख। बाड़मेर-जैसलमेर बेल्ट में RLP की लोकप्रियता बढ़ाने में अग्रणी भूमिका।</p>
-            </div>
-        </div>
-    </div>
-</section>
+        .leaders-section {
+            background: var(--light);
+        }
+        
+        .leaders-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .leader-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .leader-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+        
+        .leader-info {
+            padding: 1.5rem;
+        }
+        
+        .leader-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .leader-position {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-desc {
+            color: var(--text);
+            line-height: 1.6;
+        }
         
         /* Products Section */
         .products-section {
@@ -440,7 +471,6 @@
             color: #c0392b;
         }
         
-        /* Membership Card */
         .membership-card-container {
             display: none;
             margin-top: 2rem;
@@ -448,56 +478,86 @@
             padding: 2rem;
             border-radius: 15px;
             backdrop-filter: blur(10px);
+            animation: slideIn 0.5s ease-in-out;
         }
         
         .membership-card {
             background: linear-gradient(135deg, var(--primary), var(--saffron));
-            border-radius: 15px;
+            border: 2px solid #ffffff33;
+            border-radius: 20px;
             padding: 2rem;
             color: white;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             max-width: 400px;
             margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .membership-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/diagonal-noise.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        
+        .membership-card > * {
+            position: relative;
+            z-index: 1;
         }
         
         .card-logo {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
         
         .card-title {
-            font-size: 1.8rem;
+            font-size: 2rem;
+            font-weight: 700;
             margin-bottom: 1rem;
+            letter-spacing: 1px;
         }
         
         .member-name {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
+            font-weight: 600;
             margin: 1rem 0;
-            padding: 0.5rem;
-            background: rgba(255,255,255,0.2);
-            border-radius: 8px;
+            padding: 0.7rem;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
         }
         
         .member-id {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            font-weight: 500;
         }
         
         .download-btn {
             background: white;
             color: var(--primary);
             border: none;
-            padding: 0.8rem 1.5rem;
-            font-size: 1rem;
+            padding: 0.8rem 2rem;
+            font-size: 1.1rem;
             border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
         .download-btn:hover {
-            background: #f1f1f1;
+            background: var(--saffron);
+            color: white;
             transform: translateY(-3px);
         }
         
@@ -785,6 +845,80 @@
             background: var(--accent);
         }
         
+        /* Creator Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, var(--primary), var(--saffron));
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            color: white;
+            text-align: center;
+            z-index: 2000;
+            animation: popupFadeIn 0.5s ease-in-out forwards;
+        }
+        
+        .popup-content {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .popup-close {
+            background: white;
+            color: var(--primary);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .popup-close:hover {
+            background: var(--saffron);
+            color: white;
+        }
+        
+        @keyframes popupFadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+        }
+        
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1500;
+        }
+        
+        /* Membership Card Animation */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
         /* Footer */
         footer {
             background: var(--dark);
@@ -883,6 +1017,19 @@
             .section-title {
                 font-size: 2rem;
             }
+            
+            .membership-card {
+                max-width: 90%;
+            }
+            
+            .popup {
+                width: 90%;
+                padding: 1.5rem;
+            }
+            
+            .popup-content {
+                font-size: 1.2rem;
+            }
         }
     </style>
 </head>
@@ -901,6 +1048,13 @@
                 </div>
             </div>
         </div>
+    </div>
+    
+    <!-- Creator Popup -->
+    <div class="popup-overlay" id="popup-overlay"></div>
+    <div class="popup" id="creator-popup">
+        <div class="popup-content">Created By: Naresh Kumar</div>
+        <button class="popup-close" id="popup-close">बंद करें</button>
     </div>
     
     <!-- Main Content -->
@@ -941,7 +1095,7 @@
             <h2 class="section-title">हमारे नेता</h2>
             <div class="leaders-grid">
                 <div class="leader-card">
-                    <div class="leader-img hanuman-img"></div>
+                    <img src="HB.jpg" alt="Hanuman Beniwal" class="leader-img" id="hanuman-img">
                     <div class="leader-info">
                         <h3 class="leader-name">हनुमान बेनीवाल</h3>
                         <p class="leader-position">राष्ट्रीय संयोजक, RLP</p>
@@ -950,7 +1104,7 @@
                 </div>
                 
                 <div class="leader-card">
-                    <div class="leader-img prakash-img"></div>
+                    <img src="pk.jpg" alt="Dr. Prakash Chaudhary" class="leader-img" id="prakash-img">
                     <div class="leader-info">
                         <h3 class="leader-name">डॉ. प्रकाश चौधरी</h3>
                         <p class="leader-position">जिला संयोजक, बाड़मेर</p>
@@ -1190,7 +1344,20 @@
                     </div>
                     
                     <div class="tab-pane" id="leaders-tab">
-                        <p>नेता प्रबंधन पैनल - यहाँ आप नए नेता जोड़ सकते हैं और मौजूदा नेताओं की जानकारी अपडेट कर सकते हैं।</p>
+                        <h3>नेता प्रबंधन पैनल</h3>
+                        <p>यहाँ आप नेताओं की छवियों को अपडेट कर सकते हैं।</p>
+                        <div class="leader-upload-form">
+                            <div class="form-group">
+                                <label for="hanuman-image">हनुमान बेनीवाल की छवि अपलोड करें (.jpg)</label>
+                                <input type="file" id="hanuman-image" accept="image/jpeg" data-leader="hanuman">
+                            </div>
+                            <div class="form-group">
+                                <label for="prakash-image">डॉ. प्रकाश चौधरी की छवि अपलोड करें (.jpg)</label>
+                                <input type="file" id="prakash-image" accept="image/jpeg" data-leader="prakash">
+                            </div>
+                            <button class="action-btn" id="upload-images">छवियाँ अपलोड करें</button>
+                            <div class="message" id="leader-image-message"></div>
+                        </div>
                     </div>
                     
                     <div class="tab-pane" id="products-tab">
@@ -1218,18 +1385,25 @@
                 <a href="#contact">संपर्क</a>
             </div>
             
-            <p class="copyright">© 2025 राष्ट्रीय लोकतांत्रिक पार्टी। सर्वाधिकार सुरक्षित। डॉ. प्रकाश चौधरी द्वारा विकसित</p>
+            <p class="copyright">© 2025 राष्ट्रीय लोकतांत्रिक पार्टी। सर्वाधिकार सुरक्षित।</p>
         </footer>
     </div>
     
     <script>
+        // Initialize EmailJS with your public key
+        emailjs.init("YOUR_PUBLIC_KEY"); // Replace YOUR_PUBLIC_KEY with your EmailJS public key
+        
         // Door opening animation
         document.addEventListener('DOMContentLoaded', function() {
             const leftDoor = document.querySelector('.left-door');
             const rightDoor = document.querySelector('.right-door');
             const doorContainer = document.querySelector('.door-container');
             const mainContent = document.querySelector('.main-content');
+            const popupOverlay = document.getElementById('popup-overlay');
+            const creatorPopup = document.getElementById('creator-popup');
+            const popupClose = document.getElementById('popup-close');
             
+            // Show popup after door animation
             setTimeout(() => {
                 leftDoor.style.transform = "rotateY(-120deg)";
                 rightDoor.style.transform = "rotateY(120deg)";
@@ -1241,10 +1415,25 @@
                         mainContent.style.display = "block";
                         setTimeout(() => {
                             mainContent.style.opacity = "1";
+                            // Show popup
+                            popupOverlay.style.display = 'block';
+                            creatorPopup.style.display = 'block';
                         }, 100);
                     }, 1000);
                 }, 2000);
             }, 1000);
+            
+            // Close popup
+            popupClose.addEventListener('click', () => {
+                popupOverlay.style.display = 'none';
+                creatorPopup.style.display = 'none';
+            });
+            
+            // Close popup when clicking overlay
+            popupOverlay.addEventListener('click', () => {
+                popupOverlay.style.display = 'none';
+                creatorPopup.style.display = 'none';
+            });
             
             // Mobile menu toggle
             const mobileToggle = document.querySelector('.mobile-toggle');
@@ -1275,14 +1464,10 @@
             
             tabBtns.forEach(btn => {
                 btn.addEventListener('click', () => {
-                    // Remove active class from all buttons and panes
                     tabBtns.forEach(b => b.classList.remove('active'));
                     tabPanes.forEach(pane => pane.classList.remove('active'));
                     
-                    // Add active class to clicked button
                     btn.classList.add('active');
-                    
-                    // Show corresponding pane
                     const tabId = btn.getAttribute('data-tab');
                     document.getElementById(`${tabId}-tab`).classList.add('active');
                 });
@@ -1306,10 +1491,7 @@
                     return;
                 }
                 
-                // Generate unique ID
                 const uniqueId = 'RLP' + Math.floor(1000 + Math.random() * 9000);
-                
-                // Save to local storage
                 const memberData = {
                     name,
                     email,
@@ -1318,16 +1500,10 @@
                     date: new Date().toLocaleDateString('hi-IN')
                 };
                 
-                // Get existing members or initialize empty array
                 const existingMembers = JSON.parse(localStorage.getItem('rlp_members')) || [];
-                
-                // Add new member
                 existingMembers.push(memberData);
-                
-                // Save back to localStorage
                 localStorage.setItem('rlp_members', JSON.stringify(existingMembers));
                 
-                // Update admin table
                 const membersTable = document.getElementById('members-table');
                 const newRow = document.createElement('tr');
                 newRow.innerHTML = `
@@ -1339,18 +1515,31 @@
                 `;
                 membersTable.appendChild(newRow);
                 
-                // Show membership card
                 cardName.textContent = name;
                 cardId.textContent = 'आईडी: ' + uniqueId;
                 membershipCardContainer.style.display = 'block';
                 
-                // Show success message
                 showMessage(membershipMessage, 'success', 'सदस्यता सफलतापूर्वक पंजीकृत हो गई!');
                 
-                // Scroll to card
                 setTimeout(() => {
                     membershipCardContainer.scrollIntoView({ behavior: 'smooth' });
                 }, 500);
+            });
+            
+            // Download membership card as PDF
+            document.getElementById('download-card').addEventListener('click', function() {
+                const cardElement = document.getElementById('card-to-download');
+                html2canvas(cardElement, { scale: 2 }).then(canvas => {
+                    const pdf = new jspdf.jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [canvas.width / 2, canvas.height / 2]
+                    });
+                    const imgData = canvas.toDataURL('image/png');
+                    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width / 2, canvas.height / 2);
+                    pdf.save('rlp_membership_card.pdf');
+                    showMessage(membershipMessage, 'success', 'कार्ड सफलतापूर्वक डाउनलोड हो गया!');
+                });
             });
             
             // Load existing members on page load
@@ -1358,12 +1547,10 @@
                 const membersTable = document.getElementById('members-table');
                 const existingMembers = JSON.parse(localStorage.getItem('rlp_members')) || [];
                 
-                // Clear existing rows except the first two (sample data)
                 while (membersTable.children.length > 2) {
                     membersTable.removeChild(membersTable.lastChild);
                 }
                 
-                // Add members from localStorage
                 existingMembers.forEach(member => {
                     const newRow = document.createElement('tr');
                     newRow.innerHTML = `
@@ -1376,31 +1563,6 @@
                     membersTable.appendChild(newRow);
                 });
             }
-            
-            // Download membership card as PDF
-            document.getElementById('download-card').addEventListener('click', function() {
-                const cardElement = document.getElementById('card-to-download');
-                
-                // Use html2canvas to capture card as image
-                html2canvas(cardElement).then(canvas => {
-                    // Create PDF
-                    const pdf = new jspdf.jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [canvas.width, canvas.height]
-                    });
-                    
-                    // Add image to PDF
-                    const imgData = canvas.toDataURL('image/png');
-                    pdf.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
-                    
-                    // Download PDF
-                    pdf.save('rlp_membership_card.pdf');
-                    
-                    // Show success message
-                    showMessage(membershipMessage, 'success', 'कार्ड सफलतापूर्वक डाउनलोड हो गया!');
-                });
-            });
             
             // Comment form functionality
             const commentForm = document.getElementById('comment-form');
@@ -1417,16 +1579,10 @@
                     return;
                 }
                 
-                // Create new comment element
                 const newComment = document.createElement('div');
                 newComment.className = 'comment';
-                
-                // Get first letter for avatar
                 const avatarLetter = name.charAt(0).toUpperCase();
-                
-                // Format date
-                const now = new Date();
-                const dateStr = now.toLocaleDateString('hi-IN');
+                const dateStr = new Date().toLocaleDateString('hi-IN');
                 
                 newComment.innerHTML = `
                     <div class="comment-header">
@@ -1437,30 +1593,21 @@
                     <div class="comment-content">${text}</div>
                 `;
                 
-                // Add to top of comments list
                 commentsList.insertBefore(newComment, commentsList.firstChild);
                 
-                // Save comment to localStorage
                 const commentData = {
                     name: name,
                     text: text,
                     date: dateStr
                 };
                 
-                // Get existing comments or initialize empty array
                 const existingComments = JSON.parse(localStorage.getItem('rlp_comments')) || [];
-                
-                // Add new comment
                 existingComments.push(commentData);
-                
-                // Save back to localStorage
                 localStorage.setItem('rlp_comments', JSON.stringify(existingComments));
                 
-                // Clear form
                 document.getElementById('comment-name').value = '';
                 document.getElementById('comment-text').value = '';
                 
-                // Show success message
                 showMessage(commentMessage, 'success', 'आपकी टिप्पणी सफलतापूर्वक जमा कर दी गई है!');
             });
             
@@ -1469,17 +1616,13 @@
                 const commentsList = document.getElementById('comments-list');
                 const existingComments = JSON.parse(localStorage.getItem('rlp_comments')) || [];
                 
-                // Clear existing comments except the first two (sample data)
                 while (commentsList.children.length > 2) {
                     commentsList.removeChild(commentsList.lastChild);
                 }
                 
-                // Add comments from localStorage
                 existingComments.forEach(comment => {
                     const newComment = document.createElement('div');
                     newComment.className = 'comment';
-                    
-                    // Get first letter for avatar
                     const avatarLetter = comment.name.charAt(0).toUpperCase();
                     
                     newComment.innerHTML = `
@@ -1490,13 +1633,11 @@
                         </div>
                         <div class="comment-content">${comment.text}</div>
                     `;
-                    
-                    // Add to comments list
                     commentsList.appendChild(newComment);
                 });
             }
             
-            // Contact form functionality
+            // Contact form functionality with EmailJS
             const contactForm = document.getElementById('contact-form');
             const submitContactBtn = document.getElementById('submit-contact');
             const contactMessage = document.getElementById('contact-message');
@@ -1512,7 +1653,25 @@
                     return;
                 }
                 
-                // Save contact message to localStorage
+                const templateParams = {
+                    from_name: name,
+                    from_email: email,
+                    subject: subject,
+                    message: message
+                };
+                
+                emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+                    .then(function(response) {
+                        showMessage(contactMessage, 'success', 'आपका संदेश सफलतापूर्वक भेज दिया गया है! हम जल्द ही आपसे संपर्क करेंगे।');
+                        document.getElementById('contact-name').value = '';
+                        document.getElementById('contact-email').value = '';
+                        document.getElementById('contact-subject').value = '';
+                        document.getElementById('contact-message').value = '';
+                    }, function(error) {
+                        showMessage(contactMessage, 'error', 'संदेश भेजने में त्रुटि हुई। कृपया पुनः प्रयास करें।');
+                    });
+                
+                // Also save to localStorage for admin panel
                 const contactData = {
                     name,
                     email,
@@ -1521,48 +1680,70 @@
                     date: new Date().toLocaleDateString('hi-IN')
                 };
                 
-                // Get existing contacts or initialize empty array
                 const existingContacts = JSON.parse(localStorage.getItem('rlp_contacts')) || [];
-                
-                // Add new contact
                 existingContacts.push(contactData);
-                
-                // Save back to localStorage
                 localStorage.setItem('rlp_contacts', JSON.stringify(existingContacts));
+            });
+            
+            // Image upload functionality
+            const uploadImagesBtn = document.getElementById('upload-images');
+            const leaderImageMessage = document.getElementById('leader-image-message');
+            
+            uploadImagesBtn.addEventListener('click', function() {
+                const hanumanInput = document.getElementById('hanuman-image');
+                const prakashInput = document.getElementById('prakash-image');
                 
-                // Clear form
-                document.getElementById('contact-name').value = '';
-                document.getElementById('contact-email').value = '';
-                document.getElementById('contact-subject').value = '';
-                document.getElementById('contact-message').value = '';
+                if (hanumanInput.files && hanumanInput.files[0]) {
+                    const file = hanumanInput.files[0];
+                    if (file.type === 'image/jpeg') {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('hanuman-img').src = e.target.result;
+                            localStorage.setItem('hanuman_image', e.target.result);
+                            showMessage(leaderImageMessage, 'success', 'हनुमान बेनीवाल की छवि सफलतापूर्वक अपलोड की गई!');
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        showMessage(leaderImageMessage, 'error', 'कृपया केवल .jpg फ़ाइल अपलोड करें');
+                        return;
+                    }
+                }
                 
-                // Show success message
-                showMessage(contactMessage, 'success', 'आपका संदेश सफलतापूर्वक भेज दिया गया है! हम जल्द ही आपसे संपर्क करेंगे।');
+                if (prakashInput.files && prakashInput.files[0]) {
+                    const file = prakashInput.files[0];
+                    if (file.type === 'image/jpeg') {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            document.getElementById('prakash-img').src = e.target.result;
+                            localStorage.setItem('prakash_image', e.target.result);
+                            showMessage(leaderImageMessage, 'success', 'डॉ. प्रकाश चौधरी की छवि सफलतापूर्वक अपलोड की गई!');
+                        };
+                        reader.readAsDataURL(file);
+                    } else {
+                        showMessage(leaderImageMessage, 'error', 'कृपया केवल .jpg फ़ाइल अपलोड करें');
+                        return;
+                    }
+                }
             });
             
-            // Product buttons functionality
-            document.getElementById('download-book').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('RLP विचारधारा पुस्तिका डाउनलोड शुरू हो रही है...');
-            });
-            
-            document.getElementById('buy-merch').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('आप RLP मर्चेंडाइज खरीदने की प्रक्रिया पर जा रहे हैं...');
-            });
-            
-            document.getElementById('download-app').addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('RLP मोबाइल ऐप डाउनलोड शुरू हो रहा है...');
-            });
+            // Load saved images on page load
+            function loadLeaderImages() {
+                const hanumanImage = localStorage.getItem('hanuman_image');
+                const prakashImage = localStorage.getItem('prakash_image');
+                
+                if (hanumanImage) {
+                    document.getElementById('hanuman-img').src = hanumanImage;
+                }
+                if (prakashImage) {
+                    document.getElementById('prakash-img').src = prakashImage;
+                }
+            }
             
             // Helper function to show messages
             function showMessage(element, type, text) {
                 element.textContent = text;
                 element.className = 'message ' + type;
                 element.style.display = 'block';
-                
-                // Hide message after 5 seconds
                 setTimeout(() => {
                     element.style.display = 'none';
                 }, 5000);
@@ -1571,6 +1752,7 @@
             // Load existing data on page load
             loadMembers();
             loadComments();
+            loadLeaderImages();
         });
     </script>
 </body>

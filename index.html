@@ -102,8 +102,9 @@
             60% { transform: translateY(-5px); }
         }
         @keyframes titleFadeIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            100% { opacity: 1; transform: scale(1); }
+            0% { opacity: 0; transform: scale(0.8) rotate(-5deg); }
+            50% { transform: scale(1.1) rotate(2deg); }
+            100% { opacity: 1; transform: scale(1) rotate(0deg); }
         }
         @keyframes flipJCB {
             0% { transform: rotateY(0deg); }
@@ -112,6 +113,64 @@
         .jcb-flip {
             animation: flipJCB 10s linear infinite;
             transform-style: preserve-3d;
+        }
+        /* Pop-up styles */
+        .creator-popup {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            width: 250px;
+            z-index: 1000;
+            animation: slideInRight 1s ease-in-out;
+            display: none;
+        }
+        .creator-popup.active {
+            display: block;
+        }
+        .creator-popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 20px;
+            color: #800080;
+        }
+        .creator-popup img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: block;
+            border: 3px solid #FFCC00;
+        }
+        .creator-popup h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 18px;
+            color: #800080;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .creator-popup p {
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+        @keyframes slideInRight {
+            0% { opacity: 0; transform: translateX(100px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        /* Header background design */
+        header .container {
+            background: linear-gradient(135deg, #FFCC00 0%, #800080 100%);
+            border-radius: 15px;
+            padding: 20px;
         }
         .container {
             max-width: 1200px;
@@ -253,12 +312,15 @@
     </style>
 </head>
 <body>
+    <!-- Creator Pop-up -->
+    <div class="creator-popup" id="creatorPopup">
+        <i class="fas fa-times close-btn" onclick="document.getElementById('creatorPopup').style.display='none'"></i>
+        <img src="Naresh.jpg" alt="Naresh Kumar">
+        <h4>Naresh Kumar</h4>
+        <p>Site Creator</p>
+        <p>Mobile: <a href="tel:+919509562376" style="color: #800080; text-decoration: none;">9509562376</a></p>
+    </div>
 
-    <!-- Example of usage -->
-    <h1 class="brand-name text-center font-montserrat mb-8 animate-title">Bharat Earth Motors</h1>
-
-</body>
-</html>
     <!-- Header -->
     <header class="bg-white shadow-lg">
         <div class="container">
@@ -269,7 +331,7 @@
                 </div>
                 <!-- Business Name -->
                 <div class="text-center">
-                    <h1 class="font-montserrat animate-title" style="font-weight: 800; font-size: 48px; color: #000; margin-bottom: 5px;">
+                    <h1 class="font-montserrat animate-title" style="font-weight: 800; font-size: 48px; color: #800080; margin-bottom: 5px;">
                         BHARAT EARTH MOTORS
                     </h1>
                     <p style="font-size: 16px; color: #666;">JCB Parts & Service</p>
@@ -283,6 +345,7 @@
             </div>
         </div>
     </header>
+
     <!-- Hero Section -->
     <section class="relative h-screen flex items-center justify-center" style="background-image: url('Bg.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
         <div class="absolute inset-0" style="background-color: rgba(0,0,0,0.6);"></div>
@@ -302,6 +365,7 @@
             </a>
         </div>
     </section>
+
     <!-- About Section -->
     <section class="py-20" style="background-color: white;">
         <div class="container">
@@ -337,16 +401,13 @@
                 </div>
                 <div class="text-center">
                     <div style="width: 350px; height: 350px; margin: 0 auto; background-color: #e5e5e5; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 4px solid #FFCC00;">
-                        <div class="text-center" style="color: #888;">
-                            <i class="fas fa-user" style="font-size: 80px; margin-bottom: 20px;"></i>
-                            <p class="font-poppins" style="font-weight: bold; font-size: 20px;">मालिक का चित्र</p>
-                            <p style="font-size: 16px; margin-top: 10px;">Owner's Photo</p>
-                        </div>
+                        <img src="Vijay.jpg" alt="Vijay Kumar Choudhary" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
     <!-- Services Section -->
     <section class="py-20" style="background-color: #f5f5f5;">
         <div class="container">
@@ -390,6 +451,7 @@
             </div>
         </div>
     </section>
+
     <!-- Gallery Section -->
     <section class="py-20" style="background-color: white;">
         <div class="container">
@@ -405,9 +467,7 @@
                 </h4>
                 <div class="grid md-grid-2">
                     <div class="gallery-item">
-                        <img src="Happy Costomer 1.png" 
-     alt="Happy satisfied customer" 
-     style="width: 525px; height: auto; object-fit: cover; object-position: center;">
+                        <img src="Happy Costomer 1.png" alt="Happy satisfied customer" style="width: 525px; height: auto; object-fit: cover; object-position: center;">
                     </div>
                     <div class="gallery-item">
                         <img src="Happy Costomer 2.png" alt="Construction worker giving thumbs up" style="width: 525px; height: auto; object-fit: cover; object-position: center;">
@@ -419,29 +479,30 @@
                 <h4 class="font-poppins text-jcb-black mb-8 text-center" style="font-weight: bold; font-size: 28px;">
                     <i class="fas fa-cogs text-jcb-yellow" style="margin-right: 15px;"></i>Original JCB Parts Collection
                 </h4>
-               <div class="grid lg-grid-4 md-grid-3 grid-2">
-    <div class="gallery-item">
-        <img src="Jcb part 1.png" alt="JCB hydraulic parts" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 2.png" alt="Engine parts collection" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 3.png" alt="Transmission parts inventory" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 4.png" alt="Electrical components display" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 5.png" alt="Spare parts warehouse" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 6.png" alt="Organized parts storage" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-    <div class="gallery-item">
-        <img src="Jcb part 7.png" alt="Quality parts inspection" style="width: 84%; height: 245px; object-fit: cover;">
-    </div>
-               </div>
+                <div class="grid lg-grid-4 md-grid-3 grid-2">
+                    <div class="gallery-item">
+                        <img src="Jcb part 1.png" alt="JCB hydraulic parts" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 2.png" alt="Engine parts collection" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 3.png" alt="Transmission parts inventory" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 4.png" alt="Electrical components display" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 5.png" alt="Spare parts warehouse" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 6.png" alt="Organized parts storage" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="Jcb part 7.png" alt="Quality parts inspection" style="width: 84%; height: 245px; object-fit: cover;">
+                    </div>
+                </div>
+            </div>
             <!-- Our Workshop -->
             <div class="mb-8">
                 <h4 class="font-poppins text-jcb-black mb-8 text-center" style="font-weight: bold; font-size: 28px;">
@@ -459,15 +520,19 @@
                     </div>
                 </div>
             </div>
-            <!-- 3D JCB Model -->
+            <!-- Video Section -->
             <div class="text-center mb-8">
                 <h4 class="font-poppins text-jcb-black mb-8" style="font-weight: bold; font-size: 28px;">
-                    <i class="fas fa-cube text-jcb-yellow" style="margin-right: 15px;"></i>3D JCB Model
+                    <i class="fas fa-video text-jcb-yellow" style="margin-right: 15px;"></i>JCB Video
                 </h4>
-                <iframe style="width: 100%; height: 500px; border: none; border-radius: 20px;" src="https://sketchfab.com/3d-models/jcb-backhoe-loader-2a61c987f8b048f592e084b4eefc1dd1#download" allow="autoplay; fullscreen; vr" allowfullscreen></iframe>
+                <video style="width: 100%; height: 500px; border-radius: 20px;" autoplay loop muted>
+                    <source src="https://example.com/jcb-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
             </div>
         </div>
     </section>
+
     <!-- Service Process Section -->
     <section class="py-20" style="background-color: #f5f5f5;">
         <div class="container">
@@ -486,9 +551,6 @@
                         <div class="gallery-item">
                             <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="JCB needing repair" style="width: 100%; height: 200px; object-fit: cover;">
                         </div>
-                        <div class="gallery-item">
-                            <img src="https://images.unsplash.com/photo-1562813733-b31f71025d54?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Broken down JCB" style="width: 100%; height: 200px; object-fit: cover;">
-                        </div>
                     </div>
                 </div>
                 <!-- Work in Progress -->
@@ -500,15 +562,8 @@
                         <div class="gallery-item">
                             <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Mechanic working on JCB" style="width: 100%; height: 200px; object-fit: cover;">
                         </div>
-                        <div class="gallery-item">
-                            <img src="https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Technician servicing hydraulic system" style="width: 100%; height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Parts replacement in progress" style="width: 100%; height: 200px; object-fit: cover;">
-                        </div>
                     </div>
                 </div>
-           
                 <!-- After Service -->
                 <div class="text-center">
                     <h4 class="font-poppins text-jcb-black mb-8" style="font-weight: bold; font-size: 24px;">
@@ -517,12 +572,6 @@
                     <div style="display: flex; flex-direction: column; gap: 20px;">
                         <div class="gallery-item">
                             <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Fully serviced JCB" style="width: 100%; height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="Clean polished JCB" style="width: 100%; height: 200px; object-fit: cover;">
-                        </div>
-                        <div class="gallery-item">
-                            <img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&h=400" alt="JCB back to work" style="width: 100%; height: 200px; object-fit: cover;">
                         </div>
                     </div>
                 </div>
@@ -538,20 +587,17 @@
                     Customer <span class="text-jcb-yellow">Stories</span>
                 </h3>
             </div>
-
             <div class="relative">
                 <!-- Person standing in garage with workshop setting -->
                 <div class="flex justify-center mb-8">
                     <div style="width: 400px; height: 400px; background-color: #e5e5e5; border-radius: 20px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;">
                         <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&h=800" alt="Person standing in garage workshop" style="width: 100%; height: 100%; object-fit: cover;">
-                        
                         <!-- Left Thought Bubble -->
                         <div class="thought-bubble lg-block hidden" style="position: absolute; left: -150px; top: 50px;">
                             <p class="font-poppins text-jcb-black" style="font-weight: bold; font-size: 18px;">
                                 Well, okay work 👍🏼
                             </p>
                         </div>
-                        
                         <!-- Right Thought Bubble -->
                         <div class="thought-bubble lg-block hidden" style="position: absolute; right: -180px; top: 50px;">
                             <p class="font-poppins text-jcb-black" style="font-weight: bold; font-size: 18px;">
@@ -560,7 +606,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Mobile thought bubbles -->
                 <div class="grid md-grid-2 lg-block" style="margin-top: 40px;">
                     <div class="thought-bubble text-center">
@@ -578,7 +623,7 @@
         </div>
     </section>
 
-     <!-- Contact Section -->
+    <!-- Contact Section -->
     <section id="contact" class="py-20 bg-jcb-black">
         <div class="container">
             <div class="text-center mb-8">
@@ -589,7 +634,6 @@
                     Ready to service your JCB? Contact us now for immediate assistance.
                 </p>
             </div>
-            
             <div class="grid md-grid-2" style="align-items: flex-start;">
                 <!-- Contact Form -->
                 <div>
@@ -598,38 +642,28 @@
                             <label class="text-white" style="font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;">Name *</label>
                             <input type="text" name="name" class="form-control" required style="background: white; color: #333;">
                         </div>
-                        
                         <div class="form-group">
                             <label class="text-white" style="font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;">Mobile Number *</label>
                             <input type="tel" name="mobile" class="form-control" required style="background: white; color: #333;">
                         </div>
-                        
                         <div class="form-group">
                             <label class="text-white" style="font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;">Email</label>
                             <input type="email" name="email" class="form-control" style="background: white; color: #333;">
                         </div>
-                        
                         <div class="form-group">
                             <label class="text-white" style="font-weight: bold; font-size: 18px; margin-bottom: 8px; display: block;">Message *</label>
                             <textarea name="message" rows="5" class="form-control" required style="background: white; color: #333; resize: vertical;"></textarea>
                         </div>
-                        
                         <button type="submit" class="btn btn-primary font-poppins" style="width: 100%; font-size: 20px; padding: 20px;">
                             <i class="fas fa-paper-plane" style="margin-right: 10px;"></i>Send Message
                         </button>
                     </form>
                 </div>
-                
                 <!-- Owner Image & Contact Info -->
                 <div class="text-center">
                     <div style="width: 350px; height: 350px; margin: 0 auto 40px; background-color: #444; border-radius: 20px; display: flex; align-items: center; justify-content: center; border: 4px solid #FFCC00;">
-                        <div class="text-center" style="color: #aaa;">
-                            <i class="fas fa-user" style="font-size: 80px; margin-bottom: 20px;"></i>
-                            <p class="font-poppins" style="font-weight: bold; font-size: 20px;">मालिक का चित्र</p>
-                            <p style="font-size: 16px; margin-top: 10px;">Owner's Photo</p>
-                        </div>
+                        <img src="Vijay.jpg" alt="Vijay Kumar Choudhary" style="width: 100%; height: 100%; object-fit: cover; border-radius: 20px;">
                     </div>
-                    
                     <div style="background-color: #333; padding: 40px; border-radius: 20px;">
                         <h4 class="font-poppins text-white mb-6" style="font-weight: bold; font-size: 24px;">Direct Contact</h4>
                         <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -647,6 +681,11 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Location Map -->
+                    <div class="text-center mt-8">
+                        <h4 class="font-poppins text-white mb-6" style="font-weight: bold; font-size: 24px;">Our Location</h4>
+                        <iframe style="width: 100%; height: 300px; border-radius: 20px; border: none;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3550.374123456789!2d71.07612345678901!3d25.498765432109876!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDI5JzU1LjkiTiA3McKwMDQnMzQuMCJF!5e0!3m2!1sen!2sin!4v1698765432100!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -660,9 +699,8 @@
                     BHARAT EARTH MOTORS
                 </h4>
                 <p style="font-size: 18px; color: #ccc; margin-bottom: 10px;">Driven by Speed & Powered by Trust</p>
-                <p class="text-jcb-yellow" style="font-size: 18px;">रफ़्तार से चलें, विश्वास से जुड़ें।</p>
+                <p class="text-jcb-yellow" style="font-size: 18px;">गति से प्रेरित & विश्वास से संचालित</p>
             </div>
-            
             <div style="border-top: 1px solid #444; padding-top: 40px;">
                 <p style="color: #aaa;">
                     © 2024 Bharat Earth Motors. All rights reserved. | Proprietor: Vijay Kukna Barmer
@@ -688,11 +726,8 @@
         // Form submission handler
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
-            
-            // Simulate form submission
             alert('Thank you for your message! We will contact you soon.');
             this.reset();
         });
@@ -703,7 +738,6 @@
                 this.style.transform = 'scale(1.05)';
                 this.style.transition = 'transform 0.3s ease';
             });
-            
             img.addEventListener('mouseleave', function() {
                 this.style.transform = 'scale(1)';
             });
@@ -714,7 +748,6 @@
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
         };
-
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -730,6 +763,18 @@
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'all 0.8s ease';
             observer.observe(section);
+        });
+
+        // Show creator popup when scrolled to bottom
+        window.addEventListener('scroll', function() {
+            const popup = document.getElementById('creatorPopup');
+            const scrollPosition = window.scrollY + window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            if (scrollPosition >= documentHeight - 50) {
+                popup.classList.add('active');
+            } else {
+                popup.classList.remove('active');
+            }
         });
     </script>
 </body>
